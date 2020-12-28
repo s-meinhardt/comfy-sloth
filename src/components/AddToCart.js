@@ -3,10 +3,44 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { FaCheck } from 'react-icons/fa'
 import { useCartContext } from '../context/cart_context'
+import { useFilterContext } from '../context/filter_context'
 import AmountButtons from './AmountButtons'
 
-const AddToCart = () => {
-  return <h4>addToCart </h4>
+const AddToCart = ({ product }) => {
+  const { id, stock, colors } = product
+  const {
+    filters: { color: defaultColor },
+  } = useFilterContext()
+  const { addToCart } = useCartContext()
+  const [mainColor, setMainColor] = useState(colors.includes(defaultColor) ? defaultColor : colors[0])
+  const [amount, setAmount] = useState(1)
+  const increase = () => setAmount(amount => Math.min(stock, amount + 1))
+  const decrease = () => setAmount(amount => Math.max(1, amount - 1))
+  return (
+    <Wrapper>
+      <div className='colors'>
+        <span>colors : </span>
+        <div>
+          {colors.map((color, index) => (
+            <button
+              key={index}
+              className={color === mainColor ? 'color-btn active' : 'color-btn'}
+              style={{ background: color }}
+              onClick={() => setMainColor(color)}
+            >
+              {mainColor === color ? <FaCheck /> : null}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div className='btn-container'>
+        <AmountButtons amount={amount} increase={increase} decrease={decrease} />
+        <Link to='/cart' className='btn' onClick={() => addToCart(id, mainColor, amount, product)}>
+          add to cart
+        </Link>
+      </div>
+    </Wrapper>
+  )
 }
 
 const Wrapper = styled.section`
