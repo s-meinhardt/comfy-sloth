@@ -123,6 +123,7 @@ const Wrapper = styled.section`
   }
   .search-input {
     padding: 0.5rem;
+    width: 100%;
     background: var(--clr-grey-10);
     border-radius: var(--radius);
     border-color: transparent;
