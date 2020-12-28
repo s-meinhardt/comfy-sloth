@@ -15,3 +15,7 @@
 "react-dom": "^17.0.1",
 "react-scripts": "4.0.0",
 ```
+
+### Environment Variables
+
+You need to add an `.env` file with an Auth0 `REACT_APP_DOMAIN` and `REACT_APP_CLIENT_ID`.
