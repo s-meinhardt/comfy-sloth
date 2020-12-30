@@ -28,7 +28,11 @@ const CartTotals = () => {
             proceed to checkout
           </Link>
         ) : (
-          <button type='button' className='btn' onClick={loginWithRedirect}>
+          <button
+            type='button'
+            className='btn'
+            onClick={() => loginWithRedirect({ redirectUri: `${window.location.origin}/cart` })}
+          >
             login
           </button>
         )}

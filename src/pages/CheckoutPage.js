@@ -1,6 +1,7 @@
 import React from 'react'
+import { withAuthenticationRequired } from '@auth0/auth0-react'
 import styled from 'styled-components'
-import { PageHero } from '../components'
+import { PageHero, Loading } from '../components'
 const CheckoutPage = () => {
   return (
     <main>
@@ -12,4 +13,6 @@ const CheckoutPage = () => {
   )
 }
 const Wrapper = styled.div``
-export default CheckoutPage
+export default withAuthenticationRequired(CheckoutPage, {
+  onRedirecting: Loading,
+})
